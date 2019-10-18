@@ -8,36 +8,27 @@ import (
 	"github.com/nlopes/slack"
 )
 
-// type Config struct {
-// 	API APIConfig
-// }
+type Env struct {
+	Config Config
+	rtm    *slack.RTM
+}
 
-// type APIConfig struct {
-// 	Token string
-// 	Botid string
-// }
+type Config struct {
+	Token string
+	Botid string
+}
 
 func main() {
-	// var config Config
+    var env Env
+    env.Config := domain.NewEnviroment()
 
-	// _, err := toml.DecodeFile("config.toml", &config)
-	// if err != nil {
-	// 	// Error Handling
-	// }
-
-	// api := slack.New(
-	// 	config.API.Token,
-	// )
-
-	// fmt.Println(config.API.Token)
-	// rtm := api.NewRTM()
-	env := domain.NewEnviroment()
+	env.rtm := slack.New(env.Config.Token).NewRTM()
 	go rtm.ManageConnection()
 
 	for msg := range rtm.IncomingEvents {
 		switch ev := msg.Data.(type) {
 		case *slack.MessageEvent:
-			if err := config.ValidateMessageEvent(ev, rtm); err != nil {
+			if err := env.ValidateMessageEvent(ev, rtm); err != nil {
 				log.Printf("[ERROR] Failed to handle message: %s", err)
 			}
 		}
@@ -45,7 +36,7 @@ func main() {
 }
 
 // ValidateMessageEvent send Message
-func (config *Config) ValidateMessageEvent(ev *slack.MessageEvent, rtm *slack.RTM) error {
+func (env *Env) ValidateMessageEvent(ev *slack.MessageEvent, rtm *slack.RTM) error {
 	// Only response in specific channel. Ignore else.
 
 	// Only response mention to bot. Ignore else.
