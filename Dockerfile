@@ -7,9 +7,9 @@ WORKDIR /go/src/golang_slackbot
 COPY . .
 
 ENV GIT_SSL_NO_VERIFY=1
-RUN go get -u "github.com/YuyaBan/golang_SlackBot/app/domain"
+RUN go get -u "github.com/YuyaBan/golang_SlackBot/domain"
 RUN go get -u "github.com/nlopes/slack" 
-RUN go build app/main.go
+RUN go build main.go
 
 # runtime image
 FROM alpine
