@@ -1,6 +1,8 @@
 package domain
 
 import (
+	"log"
+
 	"github.com/BurntSushi/toml"
 )
 
@@ -17,8 +19,10 @@ func NewEnviroment() *Config {
 
 	_, err := toml.DecodeFile("config.toml", &config)
 	if err != nil {
-		// Error Handling
+		log.Printf("[Error] cannot find config.toml")
 	}
+
+	log.Printf(config.Token)
 
 	return &config
 }

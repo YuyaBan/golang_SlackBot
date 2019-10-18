@@ -11,6 +11,7 @@ import (
 func main() {
 	env := domain.NewEnviroment()
 
+	log.Printf(env.Token)
 	rtm := slack.New(env.Token).NewRTM()
 	go rtm.ManageConnection()
 
