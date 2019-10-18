@@ -2,22 +2,14 @@ package main
 
 import (
 	"log"
-	"os"
 	"strings"
 
 	"github.com/YuyaBan/golang_SlackBot/app/domain"
-	"github.com/gin-gonic/gin"
 	"github.com/nlopes/slack"
 )
 
 func main() {
 	env := domain.NewEnviroment()
-
-	// for heroku
-	port := os.Getenv("PORT")
-	router := gin.New()
-	router.Run(":" + port)
-	//
 
 	rtm := slack.New(env.Token).NewRTM()
 	go rtm.ManageConnection()
