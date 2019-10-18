@@ -4,8 +4,6 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-// Env should have config and rtm
-
 // Config should have Slack Config
 type Config struct {
 	Token string
