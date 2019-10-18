@@ -4,7 +4,7 @@ import (
 	"log"
 	"strings"
 
-	"github.com/YuyaBan/golang_SlackBot/app/domain"
+	"github.com/YuyaBan/golang_SlackBot/domain"
 	"github.com/nlopes/slack"
 )
 
