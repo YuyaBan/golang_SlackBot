@@ -2,7 +2,9 @@ package main
 
 import (
 	"log"
+	"math/rand"
 	"strings"
+	"time"
 
 	"github.com/YuyaBan/golang_SlackBot/domain"
 	"github.com/nlopes/slack"
@@ -33,12 +35,18 @@ func ValidateMessageEvent(ev *slack.MessageEvent, rtm *slack.RTM, env *domain.Co
 		return nil
 	}
 
-	if strings.Contains(ev.Msg.Text, "imouto") {
+	rand.Seed(time.Now().UnixNano())
+	emoji := []string{" :nahemohu: ", " :nahemohu_guruguru: ", " :nahemohu_scroll: ", " :nahemohu_suisui: "}
+	ans := emoji[rand.Intn(4)]
+
+	if strings.Contains(ev.Msg.Text, "妹") {
 		rtm.SendMessage(rtm.NewOutgoingMessage(":imouto: が欲しいのか？ わかるぞ。", ev.Channel))
-	} else if strings.Contains(ev.Msg.Text, "nahemohu") {
+	} else if strings.Contains(ev.Msg.Text, "なへもふ") {
 		rtm.SendMessage(rtm.NewOutgoingMessage(":nahemohu: がそんなに好き？", ev.Channel))
+	} else if strings.Contains(ev.Msg.Text, "なへもふ") {
+		rtm.SendMessage(rtm.NewOutgoingMessage("なへもふ占い！ 今日のお前は"+ans+"な日!!", ev.Channel))
 	} else {
-		rtm.SendMessage(rtm.NewOutgoingMessage("呼んだ？。どうした？", ev.Channel))
+		rtm.SendMessage(rtm.NewOutgoingMessage("呼んだ？\n「妹」「なへもふ」「占い」に反応するぞ。", ev.Channel))
 	}
 
 	return nil
