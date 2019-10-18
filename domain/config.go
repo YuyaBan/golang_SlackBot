@@ -22,7 +22,5 @@ func NewEnviroment() *Config {
 		log.Printf("[Error] cannot find config.toml")
 	}
 
-	log.Printf(config.Token)
-
 	return &config
 }
