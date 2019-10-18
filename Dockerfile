@@ -5,10 +5,15 @@ ENV GOOS=linux
 ENV GOARCH=amd64
 WORKDIR /go/src/golang_slackbot
 COPY . .
-RUN go build main.go
+
+ENV GIT_SSL_NO_VERIFY=1
+RUN go get -u "github.com/YuyaBan/golang_SlackBot/app/domain"
+RUN go get -u "github.com/nlopes/slack" 
+RUN go build app/main.go
 
 # runtime image
 FROM alpine
-COPY --from=builder /go/src/musclesister_api /app
+COPY --from=builder /go/src/golang_slackbot /app
+COPY app/config.toml /app
 
 CMD /app/main
