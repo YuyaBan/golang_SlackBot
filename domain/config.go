@@ -18,19 +18,19 @@ type Config struct {
 }
 
 // NewEnviroment return Config and rtm
-func NewEnviroment() *Env {
+func NewEnviroment(configfile string) *Env {
 
 	var config Config
 
-	_, err := toml.DecodeFile("config.toml", &config)
+	_, err := toml.DecodeFile(configfile, &config)
 	if err != nil {
 		// Error Handling
 	}
 
-	rtm := slack.New(config.Token).NewRTM()
+	slackrtm := slack.New(config.Token).NewRTM()
 
 	return &Env{
 		Config: config,
-		rtm:    rtm,
+		rtm:    slackrtm,
 	}
 }
