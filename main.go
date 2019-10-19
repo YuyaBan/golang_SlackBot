@@ -43,7 +43,7 @@ func ValidateMessageEvent(ev *slack.MessageEvent, rtm *slack.RTM, env *domain.Co
 		rtm.SendMessage(rtm.NewOutgoingMessage(":imouto: が欲しいのか？ わかるぞ。", ev.Channel))
 	} else if strings.Contains(ev.Msg.Text, "なへもふ") {
 		rtm.SendMessage(rtm.NewOutgoingMessage(":nahemohu: がそんなに好き？", ev.Channel))
-	} else if strings.Contains(ev.Msg.Text, "なへもふ") {
+	} else if strings.Contains(ev.Msg.Text, "占い") {
 		rtm.SendMessage(rtm.NewOutgoingMessage("なへもふ占い！ 今日のお前は"+ans+"な日!!", ev.Channel))
 	} else {
 		rtm.SendMessage(rtm.NewOutgoingMessage("呼んだ？\n「妹」「なへもふ」「占い」に反応するぞ。", ev.Channel))
