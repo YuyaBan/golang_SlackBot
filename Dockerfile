@@ -14,8 +14,6 @@ RUN go build main.go
 # runtime image
 FROM alpine
 COPY --from=builder /go/src/golang_slackbot /app
-COPY config.toml /app
-RUN ls /app
 
 WORKDIR /app
-CMD ./main
+CMD ./main $PORT

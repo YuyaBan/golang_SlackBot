@@ -1,8 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"math/rand"
+	"net/http"
+	"os"
+	"strconv"
 	"strings"
 	"time"
 
@@ -11,6 +15,14 @@ import (
 )
 
 func main() {
+	//deamon server for heroku
+	port, _ := strconv.Atoi(os.Args[1])
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Hello! I'm nehmohuBot server!")
+	})
+	go http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
+	// deamon server for heroku
+
 	env := domain.NewEnviroment()
 
 	rtm := slack.New(env.Token).NewRTM()
